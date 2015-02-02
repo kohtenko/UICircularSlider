@@ -114,6 +114,7 @@
 	self.value = 0.0;
 	self.minimumValue = 0.0;
 	self.maximumValue = 1.0;
+    self.allowInfiniteLoop = NO;
 	self.minimumTrackTintColor = [UIColor blueColor];
 	self.maximumTrackTintColor = [UIColor whiteColor];
 	self.thumbTintColor = [UIColor darkGrayColor];
@@ -245,7 +246,10 @@
 				angle = 2*M_PI - angle;
 			}
 			
-			self.value = translateValueFromSourceIntervalToDestinationInterval(angle, 0, 2*M_PI, self.minimumValue, self.maximumValue);
+            
+            float oldAngle = translateValueFromSourceIntervalToDestinationInterval(self.value, self.minimumValue, self.maximumValue, 0, 2*M_PI);
+            if (self.allowInfiniteLoop || ABS(oldAngle - angle) < M_PI)
+                self.value = translateValueFromSourceIntervalToDestinationInterval(angle, 0, 2*M_PI, self.minimumValue, self.maximumValue);
 			break;
 		}
         case UIGestureRecognizerStateEnded:

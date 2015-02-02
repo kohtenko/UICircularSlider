@@ -84,6 +84,13 @@ typedef enum {
  * For more on these constants, see UICircularSliderStyle.
  */
 @property (nonatomic) UICircularSliderStyle sliderStyle;
+/**
+ * Contains a Boolean value indicating whether user able to change maximum value to minimum via zero point.
+ *
+ * The default style is NO.
+ */
+@property (nonatomic) BOOL allowInfiniteLoop;
+
 
 @end
 
