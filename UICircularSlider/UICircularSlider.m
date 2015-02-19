@@ -233,7 +233,10 @@
 - (void)panGestureHappened:(UIPanGestureRecognizer *)panGestureRecognizer {
 	CGPoint tapLocation = [panGestureRecognizer locationInView:self];
 	switch (panGestureRecognizer.state) {
-		case UIGestureRecognizerStateChanged: {
+        case UIGestureRecognizerStateBegan:
+            [self sendActionsForControlEvents:UIControlEventTouchDown];
+            break;
+        case UIGestureRecognizerStateChanged: {
 			CGFloat radius = [self sliderRadius];
 			CGPoint sliderCenter = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
 			CGPoint sliderStartPoint = CGPointMake(sliderCenter.x, sliderCenter.y - radius);
@@ -275,18 +278,6 @@
 		else {
 		}
 	}
-}
-
-/** @name Touches Methods */
-#pragma mark - Touches Methods
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    
-    UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInView:self];
-    if ([self isPointInThumb:touchLocation]) {
-        [self sendActionsForControlEvents:UIControlEventTouchDown];
-    }
 }
 
 @end
